@@ -1,0 +1,23 @@
+div.columns(v-cloak="")
+  div.column.is-12
+    messages(v-bind:messages="messages")
+
+    div.card
+
+      header.card-header
+        p.card-header-title 数据下载
+
+      div.card-content
+        h2.subtitle 下载已标注数据
+
+        div.control(style="margin-bottom: 1em;")
+          block select-format-area
+
+        block example-format-area
+
+        button.button.is-primary(
+          style="margin-top: 1em;"
+          type="submit"
+          v-on:click="download()"
+          v-bind:class="{'is-loading': isLoading}"
+        ) 下载

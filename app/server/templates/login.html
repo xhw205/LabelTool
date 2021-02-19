@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<section class="hero container has-text-centered">
+  <div class="columns hero-body">
+    <div class="column is-4 is-offset-4">
+      <div class="box has-text-left">
+        {% if form.errors %}
+        <p>用户名或密码不匹配，请重新输入！</p>
+        {% endif %} {% if next %} {% if user.is_authenticated %}
+        <p>你的账号没有进入该页面的权限，请使用管理员账户！</p>
+        {% else %}
+        <p>登陆后才能查看该页面！</p>
+        {% endif %} {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="field ">
+            <label class="label">用户名</label>
+            <div class="control has-icons-left has-icons-right">
+              {{ form.username|add_class:"input" }}
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">密码</label>
+            <div class="control has-icons-left has-icons-right">
+              {{ form.password|add_class:"input"}}
+              <span class="icon is-small is-left">
+                <i class="fas fa-lock"></i>
+              </span>
+              <span class="icon is-small is-right">
+                <i class="fas fa-check"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field">
+            <label class="checkbox">
+              <input type="checkbox"> 记住密码
+            </label>
+          </div>
+          <input class="button is-block is-primary is-middle is-fullwidth" type="submit" value="登录" />
+          {% if allow_signup %}
+          <div class="field">
+            <span class="checkbox" style="margin-top:10px">
+             没有账户请联系管理员进行开通！
+{#                <a href="{% url 'signup' %}"> Sign up </a>#}
+            </span>
+          </div>
+          {% endif %}
+          <input type="hidden" name="next" value="{{ next }}" />
+        </form>
+        {% if social_login_enabled %}
+        <div class="is-divider" data-content="OR"></div>
+        {% endif %}
+        {% if github_login %}
+        <a href="{% url 'social:begin' 'github' %}" class="button is-fullwidth mb10">
+          <span class="icon"><i class="fab fa-github"></i></span>
+          <span>Login with Github</span>
+        </a>
+        {% endif %}
+        {% if aad_login %}
+        <a href="{% url 'social:begin' 'azuread-tenant-oauth2' %}" class="button is-fullwidth mb10">
+          <span class="icon"><i class="fab fa-microsoft"></i></span>
+          <span>Login with Active Directory</span>
+        </a>
+        {% endif %}
+        {% if okta_oauth_login %}
+        <a href="{% url 'social:begin' 'okta-oauth2' %}" class="button is-fullwidth mb10">
+          <span class="icon"><i class="fab fa-openid"></i></span>
+          <span>Login with Okta</span>
+        </a>
+        {% endif %}
+        {% if okta_openidconnect_login %}
+        <a href="{% url 'social:begin' 'okta-openidconnect' %}" class="button is-fullwidth mb10">
+          <span class="icon"><i class="fab fa-openid"></i></span>
+          <span>Login with Okta</span>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

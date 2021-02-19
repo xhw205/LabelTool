@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% load render_bundle from webpack_loader %}
+
+{% block header %}
+    <link rel="stylesheet" href="{% static 'assets/css/swiper.min.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="hero" style="background-color:#2a2e2f">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-6">
+                    <h1 class="title is-2 has-text-white">文本标注工具</h1>
+                </div>
+                <div class="column is-6">
+                    <figure class="image">
+                        <img src="{% static 'assets/images/named_entity_recognition.png' %}">
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <footer class="footer">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-4">
+                    <h2>
+                    </h2>
+                    <ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <div style="height:100px">
+    <a></a>>
+      <div class="content has-text-centered">
+            <p>
+                <a href="https://github.com/doccano/doccano">doccano</a> by
+                <a href="https://github.com/Hironsan">Hironsan</a>. The source code is licensed
+                <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+                <br>
+            </p>
+        </div>
+    </div>>
+{% endblock %}
+
+{% block footer %}
+    {% render_bundle 'index' 'js' %}
+{% endblock %}
